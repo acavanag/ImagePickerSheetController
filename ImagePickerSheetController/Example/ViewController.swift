@@ -30,26 +30,26 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             var sourceType = source
             if (!UIImagePickerController.isSourceTypeAvailable(sourceType)) {
                 sourceType = .PhotoLibrary
-                println("Fallback to camera roll as a source since the simulator doesn't support taking pictures")
+                print("Fallback to camera roll as a source since the simulator doesn't support taking pictures")
             }
             controller.sourceType = sourceType
             
             self.presentViewController(controller, animated: true, completion: nil)
         }
         
-        let controller = ImagePickerSheetController()
+        let controller = ImagePickerSheetController
         controller.addAction(ImageAction(title: NSLocalizedString("Take Photo Or Video", comment: "Action Title"), secondaryTitle: NSLocalizedString("Add comment", comment: "Action Title"), handler: { _ in
             presentImagePickerController(.Camera)
             }, secondaryHandler: { _, numberOfPhotos in
-                println("Comment \(numberOfPhotos) photos")
+                print("Comment \(numberOfPhotos) photos")
         }))
         controller.addAction(ImageAction(title: NSLocalizedString("Photo Library", comment: "Action Title"), secondaryTitle: { NSString.localizedStringWithFormat(NSLocalizedString("ImagePickerSheet.button1.Send %lu Photo", comment: "Action Title"), $0) as String}, handler: { _ in
             presentImagePickerController(.PhotoLibrary)
             }, secondaryHandler: { _, numberOfPhotos in
-                println("Send \(controller.selectedImageAssets)")
+                print("Send \(controller.selectedImageAssets)")
         }))
         controller.addAction(ImageAction(title: NSLocalizedString("Cancel", comment: "Action Title"), style: .Cancel, handler: { _ in
-            println("Cancelled")
+            print("Cancelled")
         }))
         
         presentViewController(controller, animated: true, completion: nil)
